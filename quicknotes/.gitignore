@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+
+# Django
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+
+# Django local settings
+.env
+*.env
+.env.*
+.settings.local
+settings_local.py
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# pycache
+__pycache__/
+*/__pycache__/
+
+# Migrations (sometimes you want these)
+# If you want to track migrations, REMOVE this section.
+# */migrations/*
+# !*/migrations/__init__.py
+
+# OS files
+.DS_Store
+Thumbs.db

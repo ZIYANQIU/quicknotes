@@ -1,0 +1,216 @@
+/* QuickNotes — upgraded cute & polished stylesheet
+	 Improvements: friendlier typography, subtle background texture, playful buttons,
+	 cleaner form layouts, stronger accessible focus states, and small animations.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+
+/* root variables defined below (keep a single :root) */
+
+/* Core layout */
+html, body{ height:100%; }
+:root{
+	--bg-1: #fff8fb;
+	--bg-2: #fffefb;
+	--card: #ffffff;
+	--muted: #7b6f7f;
+	--accent-1: #ff97b0;
+	--accent-2: #ffd28a;
+	--accent-3: #bfe6ff;
+	--shadow-1: 0 8px 28px rgba(40,30,60,0.08);
+	--shadow-2: 0 18px 36px rgba(30,20,50,0.10);
+	--radius: 16px;
+	--radius-sm: 10px;
+	--max-width: 960px;
+	/* Instagram-like palette */
+	--ins-1: #f58529;
+	--ins-2: #dd2a7b;
+	--ins-3: #8134af;
+	--ins-4: #515bd4;
+	--ins-gradient: conic-gradient(from 180deg at 50% 50%, var(--ins-1), var(--ins-2), var(--ins-3), var(--ins-4));
+}
+.page{ width:100%; max-width:var(--max-width); margin:0 auto; }
+
+/* INS-style brand and card accents */
+.page-header .brand{
+	width:56px; height:56px; border-radius:14px;
+	background: linear-gradient(135deg,var(--accent-3),var(--accent-1));
+	box-shadow: var(--shadow-1);
+	position:relative;
+}
+.page-header .brand::after{
+	content: ""; position:absolute; inset:-6px; z-index:-1; border-radius:18px;
+	background: var(--ins-gradient); filter: blur(14px); opacity:0.92;
+}
+.page-header .brand::before{
+	content:""; position:absolute; inset:6px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.18), transparent);
+}
+
+/* Note card gets a subtle INS rim and soft gloss */
+.note-card{
+	display:block; text-decoration:none; color:inherit;
+	background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,1));
+	border-radius: calc(var(--radius) + 2px);
+	padding:18px 16px;
+	box-shadow: var(--shadow-1);
+	border: 1px solid rgba(200,180,210,0.22);
+	transition: transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .2s ease;
+	position:relative; overflow:hidden;
+}
+.note-card::after{
+	content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+	background: linear-gradient(135deg, rgba(245,133,41,0.06), rgba(81,91,212,0.04));
+	mix-blend-mode: overlay; opacity:0.95;
+}
+.note-card > *{ position:relative; z-index:2 }
+.note-card:hover{ transform: translateY(-8px) scale(1.01); box-shadow: var(--shadow-2); }
+body{
+	margin:0;
+	font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+	color:#2b2330;
+	background:
+		radial-gradient(900px 400px at 10% 15%, rgba(250,200,230,0.12), transparent 10%),
+		radial-gradient(800px 380px at 90% 85%, rgba(200,230,255,0.10), transparent 8%),
+		linear-gradient(180deg, var(--bg-1), var(--bg-2));
+	/* soft vignette using instagram tint */
+	background-blend-mode: screen, screen, normal;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+	display:flex;
+	justify-content:center;
+	padding:44px 20px;
+}
+
+/* Note list grid */
+.note-list{
+	display:grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap:18px;
+	margin-bottom:20px;
+}
+
+.note-card{
+	display:block; text-decoration:none; color:inherit;
+	background: linear-gradient(180deg, var(--card), #fff);
+	border-radius: var(--radius);
+	padding:18px 16px;
+	box-shadow: var(--shadow-1);
+	border: 1px solid rgba(210,200,215,0.6);
+	transition: transform .2s cubic-bezier(.2,.9,.2,1), box-shadow .2s ease;
+}
+.note-card h3{ margin:0 0 6px 0; font-size:16px; }
+.note-card p{ margin:0; color:var(--muted); font-size:13px; }
+.note-card:hover{ transform: translateY(-8px) rotate(-0.3deg); box-shadow: var(--shadow-2); }
+
+/* Form containers */
+.upload-form, .edit-form{
+	background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.92));
+	border-radius: calc(var(--radius) - 2px);
+	padding:16px;
+	box-shadow: var(--shadow-1);
+	border: 1px solid rgba(220,215,230,0.65);
+	display:flex; flex-direction:column; gap:12px;
+}
+
+/* Form grid for larger screens */
+.form-row{ display:flex; gap:12px; }
+.form-row .col{ flex:1; }
+@media (max-width:680px){ .form-row{ flex-direction:column; } }
+
+/* Inputs */
+input[type="text"], input[type="file"], textarea, select{
+	width:100%; padding:12px 14px; border-radius: 14px;
+	border: 1px solid rgba(150,135,150,0.08);
+	background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,255,0.96));
+	box-shadow: inset 0 6px 18px rgba(120,90,140,0.03), 0 2px 6px rgba(10,8,10,0.02);
+	outline:none; font-size:14px; color:#33283a;
+	transition: box-shadow .18s ease, transform .14s ease, border-color .14s ease;
+}
+textarea{ min-height:140px; resize:vertical; }
+input::placeholder, textarea::placeholder{ color: #bbaec0; font-weight:400 }
+
+/* Focus & accessibility */
+input:focus, textarea:focus, select:focus{
+	border-color: rgba(130,80,180,0.45);
+	box-shadow: 0 10px 36px rgba(120,70,150,0.12);
+	transform: translateY(-4px);
+}
+
+/* gradient placeholder highlight */
+input:focus::placeholder, textarea:focus::placeholder{ color: transparent }
+
+/* gradient text links */
+.small-link{
+	background: linear-gradient(90deg,var(--ins-2),var(--ins-3));
+	-webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+	font-weight:700;
+}
+
+label{ display:block; font-size:13px; color:var(--muted); margin-bottom:6px }
+
+/* Buttons */
+.btn{ display:inline-flex; align-items:center; gap:8px; cursor:pointer; border:none;
+	padding:10px 14px; border-radius:12px; font-weight:700; font-size:14px; }
+.btn:active{ transform: translateY(1px) scale(.997); }
+
+.btn-submit{
+	/* cute Instagram-like gradient */
+	background: linear-gradient(135deg,#f58529 0%, #dd2a7b 45%, #8134af 100%);
+	color: #fff;
+	box-shadow: 0 16px 40px rgba(140,40,100,0.18);
+	border: 1px solid rgba(255,255,255,0.18);
+}
+.btn-delete{
+	/* softer complementary button */
+	background: linear-gradient(180deg,#fff6f8,#fff0f2);
+	color:#a23b4f;
+	box-shadow: 0 8px 20px rgba(170,110,120,0.06);
+	border: 1px solid rgba(160,120,130,0.08);
+}
+.action-row{
+	display:flex;
+	gap:12px;
+	align-items:center;
+	justify-content:flex-start;
+	margin-top:8px;
+	flex-wrap:wrap;
+}
+.action-row form{ display:inline-block; margin:0; }
+.action-row .btn{ min-width:120px; justify-content:center; }
+.action-row .btn-delete{ min-width:96px; }
+
+/* Make sure buttons are visually balanced */
+.edit-form .btn-submit{ order:0 }
+.action-row form.delete-form{ order:1 }
+
+@media (max-width:420px){
+	.action-row{ justify-content:stretch }
+	.action-row .btn{ width:100%; }
+}
+
+.btn-ghost{ background:transparent; color:var(--muted); border:1px dashed rgba(140,120,140,0.08); }
+
+.btn:hover{ transform: translateY(-3px); }
+
+/* Floating action button to add a note (optional, used if template provides) */
+.fab{
+	position:fixed; right:22px; bottom:22px; z-index:80;
+	width:64px; height:64px; border-radius:18px;
+	display:inline-grid; place-items:center; color:#3a1f2c; font-weight:800;
+	background: linear-gradient(135deg,var(--accent-1),var(--accent-2));
+	box-shadow: 0 18px 48px rgba(60,20,50,0.14);
+	border: 1px solid rgba(255,255,255,0.35);
+}
+
+/* Decorative tiny badge */
+.decorative-note{ width:36px; height:36px; border-radius:10px; background: linear-gradient(135deg,var(--accent-3),var(--accent-1)); box-shadow: 0 8px 18px rgba(100,90,120,0.08); }
+.decorative-note{ animation: floaty 6s ease-in-out infinite; }
+@keyframes floaty{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-6px) } }
+
+/* Responsive tweaks */
+@media (max-width:640px){ body{ padding:26px 12px } .note-list{ grid-template-columns: 1fr } }
+
+/* Small utility classes */
+.muted{ color:var(--muted); font-size:13px }
+.visually-hidden{ position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap }
+
