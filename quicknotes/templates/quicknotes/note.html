@@ -1,19 +1,24 @@
 {% extends "quicknotes/quicknotes.html" %}
 {% block title %}My notes {% endblock %}
 {% block body %}
-<form action="{% url 'edit' note.id %}" method="POST" enctype="multipart/form-data" class="edit-form">
-    {% csrf_token %}
-    {{ form }}
-    <div class="action-row">
-        <button class="btn btn-submit" type="submit">Save note</button>
+<div class="note-edit-wrapper">
+  <form id="edit-note-form" action="{% url 'edit' note.id %}" method="POST" enctype="multipart/form-data" class="edit-form">
+      {% csrf_token %}
+      {{ form }}
+  </form>
 
-        <form action="{% url 'delete' note.id %}" method="POST" enctype="multipart/form-data" class="delete-form">
-            {% csrf_token %}
-            <button class="btn btn-delete" type="submit">Delete note</button>
-        </form>
-    </div>
-</form>
+  <div class="action-row">
+      <!-- Save button submits the edit form via the form attribute -->
+      <button class="btn btn-submit" type="submit" form="edit-note-form">Save note</button>
 
-<a href="{% url 'notes' %}" class="small-link">All notes</a>
+      <!-- Delete is a separate sibling form (valid HTML) -->
+      <form action="{% url 'delete' note.id %}" method="POST" enctype="multipart/form-data" class="delete-form">
+          {% csrf_token %}
+          <button class="btn btn-delete" type="submit">Delete note</button>
+      </form>
+  </div>
+
+  <a href="{% url 'notes' %}" class="small-link">All notes</a>
+</div>
 
 {% endblock %}
