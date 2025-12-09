@@ -11,7 +11,8 @@ def home(request):
 
 def notes(request):
     data = Note.objects.all()
-    return render(request, "quicknotes/index.html", {'notes': data, 'form': NoteForm})
+    form = NoteForm()
+    return render(request, "quicknotes/index.html", {'notes': data, 'form': form})
 
 
 def note(request, note_id):
