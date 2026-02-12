@@ -25,13 +25,14 @@ SECRET_KEY = 'django-insecure-kj97db9b_hzu=hi@04b#z=_($l36v()x+bq&%+e54v8@*ycsh9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['quicknotes-irkk.onrender.com', '127.0.0.1']
+ALLOWED_HOSTS = ['quicknotes-irkk.onrender.com', '127.0.0.1', "localhost"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'quicknotes',
+    'quicknotes_site',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
